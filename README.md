@@ -8,9 +8,9 @@ Landing page responsiva em página única (*Single Page Application* estática),
 - **Games:** Destaques sobre mídia física, latência de rede e biblioteca favorita.
 - **Galeria:** Grade de imagens com filtro por categoria (`Telecom & Campo`, `Dev & Apps`, `Setup & Hardware`) e visualização ampliada (*lightbox*).
 - **Timão:** Espaço dedicado ao Sport Club Corinthians Paulista com escudo estilizado em SVG, conquistas e mural interativo.
-- **Trabalho:** Apresentação da atuação em engenharia de campo telecom (HFC/DOCSIS/Wi-Fi) e utilitários web mobile.
+- **Trabalho:** Apresentação da atuação em engenharia de campo telecom (HFC/DOCSIS/Wi-Fi) e utilitários web mobile, incluindo atalhos para `Claro-Estoque`, `Equipamentos-` e `Tivit`.
 - **Download:** Geração e download instantâneo de arquivos técnicos (`niveis-rf-docsis.txt` e `checklist-campo.json`).
-- **Links:** Central de atalhos rápidos e repositórios.
+- **Links:** Central de atalhos rápidos para `Claro-Estoque`, `Equipamentos-`, `Tivit`, `Guizzi` e `github.com/satoclaro/Teste`.
 - **Contato:** Formulário interativo e cópia rápida de identificação.
 
 ## Estrutura do Repositório
@@ -39,7 +39,7 @@ Para evitar alterações falsas a cada visualização no navegador, **a versão,
    ```bash
    python scripts/atualizar-revisao.py 1.2
    ```
-   O script incrementa/define a versão informada, captura a data e hora exatas da edição e atualiza tanto o texto do rodapé no `index.html` quanto este `README.md`.
+   O script grava a versão informada junto com a data e hora da edição no bloco `#footerRevision` do `index.html`.
 
 2. **Manualmente:**
    Edite a tag `<footer>` no arquivo `index.html`:

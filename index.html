@@ -351,6 +351,47 @@
       margin-bottom: 0.75rem;
     }
 
+    .work-links {
+      margin-top: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.35rem 1.5rem;
+    }
+
+    .work-links h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.85rem;
+      color: var(--accent);
+    }
+
+    .work-links-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .work-link-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 0.55rem 0.95rem;
+      border-radius: 9px;
+      transition: var(--transition);
+    }
+
+    .work-link-chip:hover {
+      border-color: var(--accent-trabalho);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+
     /* GALERIA */
     .filter-bar {
       display: flex;
@@ -492,7 +533,7 @@
 
     /* LINKS */
     .links-stack {
-      max-width: 640px;
+      max-width: 680px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
@@ -503,6 +544,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 1rem;
       background: var(--bg-card);
       border: 1px solid var(--border);
       padding: 1rem 1.35rem;
@@ -511,6 +553,7 @@
       color: var(--text);
       font-weight: 700;
       transition: var(--transition);
+      word-break: break-word;
     }
 
     .link-pill:hover {
@@ -870,6 +913,24 @@
           <p>Soluções leves hospedadas via HTTPS no GitHub Pages com armazenamento local e exportação rápida em JSON, CSV e PDF.</p>
         </div>
       </div>
+
+      <div class="work-links">
+        <h3>Projetos &amp; Sistemas de Trabalho</h3>
+        <div class="work-links-list">
+          <a href="https://satoclaro.github.io/Claro-Estoque/" target="_blank" rel="noopener noreferrer" class="work-link-chip">
+            <span>📦 Claro-Estoque</span>
+            <span>↗</span>
+          </a>
+          <a href="https://satoclaro.github.io/Equipamentos-/" target="_blank" rel="noopener noreferrer" class="work-link-chip">
+            <span>📡 Equipamentos-</span>
+            <span>↗</span>
+          </a>
+          <a href="https://satoclaro.github.io/Tivit/" target="_blank" rel="noopener noreferrer" class="work-link-chip">
+            <span>📞 Tivit</span>
+            <span>↗</span>
+          </a>
+        </div>
+      </div>
     </section>
 
     <!-- 5. DOWNLOAD -->
@@ -903,21 +964,25 @@
         <p>Atalhos rápidos e repositórios</p>
       </div>
       <div class="links-stack">
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="link-pill">
-          <span>🐙 GitHub — Repositórios &amp; Projetos Web</span>
+        <a href="https://satoclaro.github.io/Claro-Estoque/" target="_blank" rel="noopener noreferrer" class="link-pill">
+          <span>📦 https://satoclaro.github.io/Claro-Estoque/</span>
           <span>↗</span>
         </a>
-        <a href="#trabalho" class="link-pill">
-          <span>📡 Portfólio Técnico &amp; Ferramentas Telecom</span>
-          <span>→</span>
+        <a href="https://satoclaro.github.io/Equipamentos-/" target="_blank" rel="noopener noreferrer" class="link-pill">
+          <span>📡 https://satoclaro.github.io/Equipamentos-/</span>
+          <span>↗</span>
         </a>
-        <a href="#download" class="link-pill">
-          <span>📦 Central de Downloads Técnicos</span>
-          <span>→</span>
+        <a href="https://satoclaro.github.io/Tivit/" target="_blank" rel="noopener noreferrer" class="link-pill">
+          <span>📞 https://satoclaro.github.io/Tivit/</span>
+          <span>↗</span>
         </a>
-        <a href="#contato" class="link-pill">
-          <span>💬 Canal Direto de Contato</span>
-          <span>→</span>
+        <a href="https://satoclaro.github.io/Guizzi/" target="_blank" rel="noopener noreferrer" class="link-pill">
+          <span>🌐 https://satoclaro.github.io/Guizzi/</span>
+          <span>↗</span>
+        </a>
+        <a href="https://github.com/satoclaro/Teste" target="_blank" rel="noopener noreferrer" class="link-pill">
+          <span>🐙 https://github.com/satoclaro/Teste</span>
+          <span>↗</span>
         </a>
       </div>
     </section>
