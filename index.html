@@ -3,25 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Automação de Ligação e WhatsApp — Sistema Tivit / Coop</title>
+  <title>Fernando Sato | Portal Pessoal &amp; Profissional</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --card-2: #0b1220;
-      --border: #334155;
-      --text: #f8fafc;
-      --muted: #94a3b8;
+      --bg: #0b0e14;
+      --bg-elevated: #121722;
+      --bg-card: #161d2b;
+      --bg-card-hover: #1d2638;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #243044;
       --accent: #38bdf8;
-      --accent-hover: #0ea5e9;
-      --whatsapp: #22c55e;
-      --whatsapp-hover: #16a34a;
-      --archive: #f59e0b;
-      --archive-hover: #d97706;
-      --call: #38bdf8;
-      --call-hover: #0ea5e9;
-      --danger: #f87171;
-      --ok: #34d399;
+      --accent-glow: rgba(56, 189, 248, 0.25);
+      --accent-games: #a855f7;
+      --accent-galeria: #ec4899;
+      --accent-timao: #ffffff;
+      --accent-trabalho: #0ea5e9;
+      --accent-download: #10b981;
+      --accent-links: #f59e0b;
+      --accent-contato: #ef4444;
+      --radius: 14px;
+      --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     * {
@@ -30,1442 +32,1116 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: linear-gradient(180deg, #0b1120 0%, #0f172a 100%);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      padding: 20px 14px 32px;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    .container {
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-      flex: 1;
-    }
-
+    /* NAVBAR */
     header {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 18px 20px;
-      margin-bottom: 16px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(11, 14, 20, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
     }
 
-    header h1 {
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      font-weight: 800;
       font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-
-    header p {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .header-actions {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn-call {
-      background: var(--call);
-      color: #051322;
-      text-decoration: none;
-      border-radius: 10px;
-      padding: 9px 14px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background-color 0.15s ease, transform 0.08s ease;
-    }
-
-    .btn-call:hover {
-      background: var(--call-hover);
-    }
-
-    .btn-call:active {
-      transform: scale(0.98);
-    }
-
-    .badge {
-      background: rgba(56, 189, 248, 0.14);
-      color: var(--accent);
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 5px 10px;
-      border-radius: 999px;
-      white-space: nowrap;
-    }
-
-    .panel {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 16px;
-    }
-
-    .panel-title {
-      font-size: 0.98rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .panel-subtitle {
-      font-size: 0.83rem;
-      color: var(--muted);
-      margin-bottom: 16px;
-      line-height: 1.45;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-
-    @media (min-width: 600px) {
-      .grid.two-col {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .field-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #e2e8f0;
-    }
-
-    .paste-tag {
-      font-size: 0.73rem;
-      color: var(--accent);
-      background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(56, 189, 248, 0.28);
-      padding: 2px 8px;
-      border-radius: 999px;
-    }
-
-    input[type="text"],
-    textarea {
-      width: 100%;
-      background: var(--card-2);
+      letter-spacing: -0.02em;
       color: var(--text);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 11px 13px;
-      font-size: 0.95rem;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
-      outline: none;
-    }
-
-    input[type="text"].campo-destaque {
-      font-size: 1.2rem;
-      font-weight: 600;
-      padding: 12px 14px;
-    }
-
-    input[type="text"].num-destaque {
-      font-size: 1.38rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      padding: 12px 14px;
-    }
-
-    input[type="text"]:focus,
-    textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
-    }
-
-    input[type="text"].pasted-flash {
-      border-color: var(--ok);
-      box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.24);
-    }
-
-    .field-footer {
+      text-decoration: none;
       display: flex;
-      justify-content: flex-start;
-      margin-top: 2px;
+      align-items: center;
+      gap: 0.5rem;
     }
 
-    .btn-clear-field {
-      padding: 4px 10px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      border-radius: 7px;
-      background: rgba(248, 113, 113, 0.1);
-      color: var(--danger);
-      border: 1px solid rgba(248, 113, 113, 0.28);
-      transition: background-color 0.15s ease, transform 0.08s ease;
-    }
-
-    .btn-clear-field:hover {
-      background: rgba(248, 113, 113, 0.2);
-    }
-
-    .script-list {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      font-size: 0.88rem;
-      line-height: 1.45;
-    }
-
-    .script-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      border-bottom: 1px dashed rgba(148, 163, 184, 0.15);
-      padding-bottom: 5px;
-    }
-
-    .script-row:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .script-label {
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    .script-val {
+    .brand span {
       color: var(--accent);
-      font-weight: 600;
-      text-align: right;
     }
 
-    .script-val.campo-destaque-txt {
-      font-size: 1.08rem;
-      font-weight: 700;
-    }
-
-    .script-val.num-destaque-txt {
-      font-size: 1.22rem;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    }
-
-    .actions {
+    nav ul {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
+      list-style: none;
+      gap: 0.35rem;
     }
 
-    button {
-      border: none;
-      border-radius: 10px;
-      padding: 11px 16px;
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
       font-size: 0.9rem;
       font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      transition: transform 0.08s ease, background-color 0.15s ease, opacity 0.15s ease;
+      padding: 0.45rem 0.8rem;
+      border-radius: 8px;
+      transition: var(--transition);
     }
 
-    button:active {
-      transform: scale(0.98);
+    nav a:hover,
+    nav a.active {
+      color: var(--text);
+      background: var(--bg-card);
+    }
+
+    nav a.active {
+      box-shadow: inset 0 -2px 0 var(--accent);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.45rem 0.7rem;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    /* HERO CAROUSEL */
+    .hero-carousel {
+      position: relative;
+      margin-top: 60px;
+      height: 520px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .slides-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(11, 14, 20, 0.92) 0%, rgba(11, 14, 20, 0.65) 60%, rgba(11, 14, 20, 0.85) 100%);
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+      text-align: center;
+    }
+
+    .slide-badge {
+      display: inline-block;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      margin-bottom: 1rem;
+    }
+
+    .slide h1 {
+      font-size: clamp(2rem, 4.5vw, 3.3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .slide p {
+      color: #cbd5e1;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      margin-bottom: 1.75rem;
+      max-width: 600px;
+      margin-inline: auto;
     }
 
     .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
       background: var(--accent);
-      color: #061322;
-      flex: 1 1 180px;
+      color: #0b0e14;
+      font-weight: 700;
+      padding: 0.85rem 1.75rem;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.98rem;
+      transition: var(--transition);
+      box-shadow: 0 8px 24px var(--accent-glow);
     }
 
     .btn-primary:hover {
-      background: var(--accent-hover);
+      transform: translateY(-2px);
+      filter: brightness(1.08);
     }
 
-    .btn-whatsapp {
-      background: var(--whatsapp);
-      color: #052010;
-      flex: 1 1 180px;
-    }
-
-    .btn-whatsapp:hover {
-      background: var(--whatsapp-hover);
-    }
-
-    .btn-archive {
-      background: var(--archive);
-      color: #1f1300;
-      flex: 1 1 180px;
-    }
-
-    .btn-archive:hover {
-      background: var(--archive-hover);
-    }
-
-    .btn-secondary {
-      background: transparent;
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(18, 23, 34, 0.75);
+      border: 1px solid var(--border);
       color: var(--text);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: var(--transition);
+    }
+
+    .carousel-btn:hover {
+      background: var(--accent);
+      color: #0b0e14;
+    }
+
+    .carousel-btn.prev { left: 1.25rem; }
+    .carousel-btn.next { right: 1.25rem; }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(11, 14, 20, 0.65);
+      padding: 0.45rem 0.75rem;
+      border-radius: 999px;
       border: 1px solid var(--border);
     }
 
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.05);
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      opacity: 0.5;
     }
 
-    .btn-mini {
-      padding: 5px 10px;
+    .dot.active {
+      width: 26px;
+      border-radius: 999px;
+      background: var(--accent);
+      opacity: 1;
+    }
+
+    /* SECTIONS LAYOUT */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    section {
+      padding: 5rem 0 2rem;
+      scroll-margin-top: 64px;
+    }
+
+    .section-header {
+      margin-bottom: 2.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.35rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-3px);
+      border-color: #334155;
+    }
+
+    .card h3 {
+      font-size: 1.18rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    .tag {
+      display: inline-block;
       font-size: 0.75rem;
-      border-radius: 7px;
-      background: rgba(56, 189, 248, 0.12);
-      color: var(--accent);
-      border: 1px solid rgba(56, 189, 248, 0.28);
-    }
-
-    .btn-mini:hover {
-      background: rgba(56, 189, 248, 0.22);
-    }
-
-    .btn-mini.danger {
-      background: rgba(248, 113, 113, 0.12);
-      color: var(--danger);
-      border-color: rgba(248, 113, 113, 0.3);
-    }
-
-    .btn-mini.danger:hover {
-      background: rgba(248, 113, 113, 0.22);
-    }
-
-    .preview-box {
-      margin-top: 16px;
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
-    }
-
-    .preview-label {
-      font-size: 0.78rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--muted);
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-    }
-
-    textarea#msgPreview {
-      min-height: 290px;
-      resize: vertical;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 0.85rem;
-      line-height: 1.5;
-    }
-
-    .status-msg {
-      margin-top: 10px;
-      font-size: 0.84rem;
-      min-height: 20px;
-      color: var(--ok);
-    }
-
-    .status-msg.warn {
-      color: var(--danger);
-    }
-
-    .archive-header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .archive-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-    }
-
-    .archive-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .archive-empty {
-      background: var(--card-2);
-      border: 1px dashed var(--border);
-      border-radius: 10px;
-      padding: 16px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.86rem;
-    }
-
-    .archive-card {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 13px 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .archive-top {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      border-bottom: 1px solid rgba(51, 65, 85, 0.7);
-      padding-bottom: 7px;
-    }
-
-    .archive-meta {
-      font-size: 0.78rem;
-      color: var(--muted);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    }
-
-    .archive-summary {
-      font-size: 0.96rem;
-      line-height: 1.5;
-      color: #e2e8f0;
-    }
-
-    .archive-summary strong {
-      color: var(--accent);
-    }
-
-    .archive-num {
-      font-size: 1.12rem;
       font-weight: 700;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      color: var(--ok);
+      padding: 0.22rem 0.6rem;
+      border-radius: 6px;
+      background: rgba(56, 189, 248, 0.14);
+      color: var(--accent);
+      margin-bottom: 0.75rem;
     }
 
-    .archive-item-btns {
+    /* GALERIA */
+    .filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: var(--transition);
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--accent-galeria);
+      color: #fff;
+      border-color: var(--accent-galeria);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      height: 210px;
+      cursor: pointer;
+      background: var(--bg-card);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.45s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.07);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 0.85rem;
+      background: linear-gradient(transparent, rgba(11, 14, 20, 0.95));
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    /* TIMAO */
+    .timao-banner {
+      background: linear-gradient(135deg, #09090b 0%, #18181b 60%, #27272a 100%);
+      border: 1px solid #3f3f46;
+      border-radius: var(--radius);
+      padding: 2rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
     }
 
-    footer {
+    .timao-crest {
+      width: 110px;
+      height: 110px;
+      flex-shrink: 0;
+    }
+
+    .mural-form {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .mural-form input {
+      flex: 1;
+      min-width: 200px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.65rem 0.9rem;
+      border-radius: 8px;
+    }
+
+    .mural-list {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .mural-msg {
+      background: var(--bg);
+      border-left: 3px solid #ffffff;
+      padding: 0.6rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    /* DOWNLOADS */
+    .download-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-download {
+      background: var(--accent-download);
+      color: #052e16;
+      font-weight: 700;
+      border: none;
+      padding: 0.6rem 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      transition: var(--transition);
+    }
+
+    .btn-download:hover {
+      filter: brightness(1.1);
+    }
+
+    /* LINKS */
+    .links-stack {
+      max-width: 640px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .link-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1rem 1.35rem;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .link-pill:hover {
+      border-color: var(--accent-links);
+      transform: translateX(4px);
+      background: var(--bg-card-hover);
+    }
+
+    /* CONTATO */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: var(--text-muted);
+    }
+
+    .form-group input,
+    .form-group textarea {
       width: 100%;
-      max-width: 800px;
-      margin: 12px auto 0;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.75rem 0.95rem;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* LIGHTBOX MODAL */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 1.5rem;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-box {
+      max-width: 820px;
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .modal-box img {
+      width: 100%;
+      max-height: 70vh;
+      object-fit: cover;
+      display: block;
+    }
+
+    .modal-footer {
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 5rem;
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.25rem;
       text-align: center;
-      font-size: 0.8rem;
-      color: var(--muted);
-      padding-top: 8px;
-      border-top: 1px solid rgba(148, 163, 184, 0.16);
+    }
+
+    .footer-version {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      background: var(--bg);
+      display: inline-block;
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: var(--accent);
+      color: #0b0e14;
+      font-weight: 700;
+      padding: 0.8rem 1.2rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+      transform: translateY(120%);
+      opacity: 0;
+      transition: var(--transition);
+      z-index: 3000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 860px) {
+      .menu-toggle { display: block; }
+      nav ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-elevated);
+        flex-direction: column;
+        padding: 1rem;
+        border-bottom: 1px solid var(--border);
+      }
+      nav ul.open { display: flex; }
+      .hero-carousel { height: 460px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div>
-        <h1>Automação de Ligação e WhatsApp — Sistema Tivit / Coop</h1>
-        <p>Clique em Nome, Endereço, O.S ou Contrato para colar automaticamente o conteúdo da área de transferência.</p>
-      </div>
-      <div class="header-actions">
-        <a href="tel:+558007690800" class="btn-call" id="btnLigarTivit" aria-label="Ligar para Tivit +558007690800">
-          Ligar para Tivit (+558007690800)
-        </a>
-        <span class="badge">Telecom • Tivit / Coop</span>
-      </div>
-    </header>
 
-    <section class="panel" aria-label="Campos variáveis com cola automática da área de transferência">
-      <div class="panel-title">1. Campos para colar da área de transferência (ao clicar)</div>
-      <div class="panel-subtitle">
-        Copie o dado desejado e clique no campo correspondente para colar o conteúdo da área de transferência automaticamente.
-        <strong>O.S</strong> formata como <code>xxx.xxx.xxxx</code> e <strong>Contrato</strong> como <code>xxx.xxx.xxx</code>, com fonte ampliada em <strong>Nome</strong>, <strong>Endereço</strong>, <strong>O.S</strong> e <strong>Contrato</strong>.
-      </div>
+  <!-- NAVEGAÇÃO -->
+  <header>
+    <div class="nav-container">
+      <a href="#topo" class="brand">FS<span>.HUB</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+      <nav>
+        <ul id="navMenu">
+          <li><a href="#games" data-nav="games">Games</a></li>
+          <li><a href="#galeria" data-nav="galeria">Galeria</a></li>
+          <li><a href="#timao" data-nav="timao">Timão</a></li>
+          <li><a href="#trabalho" data-nav="trabalho">Trabalho</a></li>
+          <li><a href="#download" data-nav="download">Download</a></li>
+          <li><a href="#links" data-nav="links">Links</a></li>
+          <li><a href="#contato" data-nav="contato">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-      <div class="grid">
-        <div class="field-group">
-          <div class="field-header">
-            <label for="nomeCliente">Nome do cliente</label>
-            <span class="paste-tag">Clique = Colar área de transferência</span>
-          </div>
-          <input
-            type="text"
-            id="nomeCliente"
-            class="campo-destaque"
-            placeholder="Clique para colar o nome do cliente da área de transferência..."
-            autocomplete="off"
-          />
-          <div class="field-footer">
-            <button type="button" class="btn-clear-field" data-clear-field="nomeCliente">Limpar campo</button>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <div class="field-header">
-            <label for="enderecoCliente">Endereço</label>
-            <span class="paste-tag">Clique = Colar área de transferência</span>
-          </div>
-          <input
-            type="text"
-            id="enderecoCliente"
-            class="campo-destaque"
-            placeholder="Clique para colar o endereço da área de transferência..."
-            autocomplete="off"
-          />
-          <div class="field-footer">
-            <button type="button" class="btn-clear-field" data-clear-field="enderecoCliente">Limpar campo</button>
-          </div>
-        </div>
-
-        <div class="grid two-col">
-          <div class="field-group">
-            <div class="field-header">
-              <label for="woNumero">O.S (xxx.xxx.xxxx)</label>
-              <span class="paste-tag">Clique = Colar</span>
-            </div>
-            <input
-              type="text"
-              id="woNumero"
-              class="num-destaque"
-              inputmode="numeric"
-              placeholder="xxx.xxx.xxxx"
-              autocomplete="off"
-            />
-            <div class="field-footer">
-              <button type="button" class="btn-clear-field" data-clear-field="woNumero">Limpar campo</button>
-            </div>
-          </div>
-
-          <div class="field-group">
-            <div class="field-header">
-              <label for="contratoNumero">Contrato (xxx.xxx.xxx)</label>
-              <span class="paste-tag">Clique = Colar</span>
-            </div>
-            <input
-              type="text"
-              id="contratoNumero"
-              class="num-destaque"
-              inputmode="numeric"
-              placeholder="xxx.xxx.xxx"
-              autocomplete="off"
-            />
-            <div class="field-footer">
-              <button type="button" class="btn-clear-field" data-clear-field="contratoNumero">Limpar campo</button>
-            </div>
-          </div>
+  <!-- CARROSSEL DE IMAGENS -->
+  <div id="topo" class="hero-carousel" aria-label="Destaques das seções">
+    <div class="slides-track" id="slidesTrack">
+      <!-- Slide 1: Games -->
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80');">
+        <div class="slide-content">
+          <span class="slide-badge" style="color: #c084fc;">Seção 01 • Games</span>
+          <h1>Setup, Reviews &amp; Cultura Gamer</h1>
+          <p>Análises diretas, configurações de hardware, jogos favoritos e bastidores da mídia física.</p>
+          <a href="#games" class="btn-primary" style="background: #a855f7; color: #fff;">Explorar Games →</a>
         </div>
       </div>
 
-      <div class="actions">
-        <button type="button" class="btn-primary" id="btnFormatarWpp">Formatar para WhatsApp</button>
-        <button type="button" class="btn-whatsapp" id="btnAbrirWpp">Formatar e abrir WhatsApp</button>
-        <button type="button" class="btn-archive" id="btnArquivarChamada">Arquivar dados da chamada</button>
-        <button type="button" class="btn-secondary" id="btnLimpar">Limpar todos</button>
-      </div>
-
-      <div id="statusMsg" class="status-msg" role="status" aria-live="polite"></div>
-
-      <div class="preview-box">
-        <div class="preview-label">
-          <span>Mensagem formatada para WhatsApp (na ordem do sistema Tivit / Coop)</span>
-          <button type="button" class="btn-mini" id="btnCopiar">Copiar mensagem</button>
-        </div>
-        <textarea
-          id="msgPreview"
-          placeholder="Clique em 'Formatar para WhatsApp' para montar a mensagem na ordem exata solicitada..."
-        ></textarea>
-      </div>
-    </section>
-
-    <section class="panel" aria-label="Chamadas arquivadas">
-      <div class="archive-header">
-        <div>
-          <div class="panel-title">2. Chamadas arquivadas</div>
-          <div class="panel-subtitle" style="margin-bottom: 0;">
-            Histórico salvo localmente no navegador para consulta, recarregamento, importação/exportação JSON e CSV ou PDF.
-          </div>
-        </div>
-        <div class="archive-actions">
-          <button type="button" class="btn-mini" id="btnExportarJson">Exportar JSON</button>
-          <button type="button" class="btn-mini" id="btnImportarJson">Importar JSON</button>
-          <button type="button" class="btn-mini" id="btnExportarCsv">Exportar CSV</button>
-          <button type="button" class="btn-mini" id="btnImportarCsv">Importar CSV</button>
-          <button type="button" class="btn-mini" id="btnBaixarPdf">Baixar PDF</button>
-          <button type="button" class="btn-mini" id="btnExportarArquivo">Baixar (.txt)</button>
-          <button type="button" class="btn-mini danger" id="btnLimparArquivo">Limpar arquivo</button>
+      <!-- Slide 2: Galeria -->
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1600&q=80');">
+        <div class="slide-content">
+          <span class="slide-badge" style="color: #f472b6;">Seção 02 • Galeria</span>
+          <h1>Registros Visuais &amp; Projetos</h1>
+          <p>Clicks de campo, bastidores técnicos, montagem de equipamentos e momentos marcantes.</p>
+          <a href="#galeria" class="btn-primary" style="background: #ec4899; color: #fff;">Abrir Galeria →</a>
         </div>
       </div>
-      <input type="file" id="inputImportJson" accept=".json,application/json" style="display:none" />
-      <input type="file" id="inputImportCsv" accept=".csv,text/csv" style="display:none" />
-      <div class="archive-list" id="listaArquivadas"></div>
-    </section>
 
-    <section class="panel" aria-label="Roteiro de fala na ordem solicitada">
-      <div class="panel-title">3. Roteiro para falar com a atendente (ordem do sistema)</div>
-      <div class="panel-subtitle">Atualiza em tempo real conforme você cola Nome, Endereço, O.S e Contrato.</div>
-      <div class="script-list" id="roteiroLigacao"></div>
-    </section>
+      <!-- Slide 3: Timão -->
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1600&q=80');">
+        <div class="slide-content">
+          <span class="slide-badge" style="color: #ffffff;">Seção 03 • Timão</span>
+          <h1>Vai, Corinthians! Bando de Loucos</h1>
+          <p>Espaço dedicado ao Todo Poderoso Timão: conquistas históricas, próximos jogos e mural da Fiel.</p>
+          <a href="#timao" class="btn-primary" style="background: #ffffff; color: #09090b;">Entrar na Arena →</a>
+        </div>
+      </div>
+
+      <!-- Slide 4: Trabalho -->
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=80');">
+        <div class="slide-content">
+          <span class="slide-badge" style="color: #38bdf8;">Seção 04 • Trabalho</span>
+          <h1>Telecomunicações &amp; Web Utilities</h1>
+          <p>Experiência em redes HFC/DOCSIS, RF, infraestrutura e ferramentas web mobile para campo.</p>
+          <a href="#trabalho" class="btn-primary">Ver Atuação →</a>
+        </div>
+      </div>
+
+      <!-- Slide 5: Download -->
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1600&q=80');">
+        <div class="slide-content">
+          <span class="slide-badge" style="color: #34d399;">Seção 05 • Download</span>
+          <h1>Arquivos, Checklists &amp; Ferramentas</h1>
+          <p>Baixe guias técnicos de referência, tabelas de níveis RF e utilitários prontos para uso.</p>
+          <a href="#download" class="btn-primary" style="background: #10b981; color: #052e16;">Ir para Downloads →</a>
+        </div>
+      </div>
+
+      <!-- Slide 6: Links -->
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1600&q=80');">
+        <div class="slide-content">
+          <span class="slide-badge" style="color: #fbbf24;">Seção 06 • Links</span>
+          <h1>Central de Conexões &amp; Repositórios</h1>
+          <p>Acesso rápido ao GitHub, portfólio de aplicações mobile e canais oficiais.</p>
+          <a href="#links" class="btn-primary" style="background: #f59e0b; color: #0b0e14;">Acessar Links →</a>
+        </div>
+      </div>
+
+      <!-- Slide 7: Contato -->
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80');">
+        <div class="slide-content">
+          <span class="slide-badge" style="color: #f87171;">Seção 07 • Contato</span>
+          <h1>Fale Diretamente Comigo</h1>
+          <p>Dúvidas técnicas, parcerias em projetos web ou troca de ideias sobre telecom e games.</p>
+          <a href="#contato" class="btn-primary" style="background: #ef4444; color: #fff;">Enviar Mensagem →</a>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-btn prev" id="prevSlide" aria-label="Slide anterior">❮</button>
+    <button class="carousel-btn next" id="nextSlide" aria-label="Próximo slide">❯</button>
+    <div class="carousel-dots" id="carouselDots"></div>
   </div>
 
-  <footer>
-    Criado por Fernando Sato - Versão 1.12 - 21.11.26 - 03:04
-  </footer>
-
-  <script>
-    const STORAGE_KEY = "tivit_coop_chamadas_arquivadas_v1_12";
-    const LEGACY_KEYS = [
-      "tivit_coop_chamadas_arquivadas_v1_11",
-      "tivit_coop_chamadas_arquivadas_v1_10",
-      "tivit_coop_chamadas_arquivadas_v1_9",
-      "tivit_coop_chamadas_arquivadas_v1_8",
-      "tivit_coop_chamadas_arquivadas_v1_7"
-    ];
-
-    const DADOS_FIXOS = {
-      opcaoServico: "239",
-      cidade: "003",
-      codigoEmpresa: "68804663#",
-      nomeFuncionario: "Fernando Sato",
-      codigoFuncionario: "Z688632",
-      nomeConveniada: "CSR Engenharia Ltda",
-      pda: "91520-6585",
-      codigoBaixa: "409",
-      tipoWo: "Instalação/\tMudança de Pacote",
-      horaInicio: "12:00"
-    };
-
-    const inputs = {
-      nomeCliente: document.getElementById("nomeCliente"),
-      enderecoCliente: document.getElementById("enderecoCliente"),
-      woNumero: document.getElementById("woNumero"),
-      contratoNumero: document.getElementById("contratoNumero")
-    };
-
-    const nomesCampos = {
-      nomeCliente: "Nome do cliente",
-      enderecoCliente: "Endereço",
-      woNumero: "O.S",
-      contratoNumero: "Contrato"
-    };
-
-    const msgPreview = document.getElementById("msgPreview");
-    const statusMsg = document.getElementById("statusMsg");
-    const roteiroLigacao = document.getElementById("roteiroLigacao");
-    const listaArquivadas = document.getElementById("listaArquivadas");
-    const inputImportJson = document.getElementById("inputImportJson");
-    const inputImportCsv = document.getElementById("inputImportCsv");
-
-    function setStatus(texto, isWarn = false) {
-      statusMsg.textContent = texto;
-      statusMsg.classList.toggle("warn", isWarn);
-    }
-
-    function flashInput(el) {
-      el.classList.remove("pasted-flash");
-      void el.offsetWidth;
-      el.classList.add("pasted-flash");
-      setTimeout(() => el.classList.remove("pasted-flash"), 900);
-    }
-
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
-    }
-
-    // Formatação xxx.xxx.xxx (até 9 dígitos) para Contrato
-    function formatarBlocoTres(valor) {
-      const digitos = String(valor || "").replace(/\D/g, "").slice(0, 9);
-      if (!digitos) return "";
-      if (digitos.length <= 3) return digitos;
-      if (digitos.length <= 6) return `${digitos.slice(0, 3)}.${digitos.slice(3)}`;
-      return `${digitos.slice(0, 3)}.${digitos.slice(3, 6)}.${digitos.slice(6)}`;
-    }
-
-    // Formatação xxx.xxx.xxxx (até 10 dígitos) para O.S
-    function formatarOsDez(valor) {
-      const digitos = String(valor || "").replace(/\D/g, "").slice(0, 10);
-      if (!digitos) return "";
-      if (digitos.length <= 3) return digitos;
-      if (digitos.length <= 6) return `${digitos.slice(0, 3)}.${digitos.slice(3)}`;
-      return `${digitos.slice(0, 3)}.${digitos.slice(3, 6)}.${digitos.slice(6)}`;
-    }
-
-    function obterLinhasOrdenadas(overrideData = null) {
-      const nome = (overrideData ? overrideData.nomeCliente : inputs.nomeCliente.value).trim();
-      const endereco = (overrideData ? overrideData.enderecoCliente : inputs.enderecoCliente.value).trim();
-      const os = formatarOsDez(overrideData ? overrideData.woNumero : inputs.woNumero.value);
-      const contrato = formatarBlocoTres(overrideData ? overrideData.contratoNumero : inputs.contratoNumero.value);
-
-      return [
-        { label: "Opção do serviço", valor: DADOS_FIXOS.opcaoServico, display: DADOS_FIXOS.opcaoServico, destaqueTipo: null },
-        { label: "Cidade", valor: DADOS_FIXOS.cidade, display: DADOS_FIXOS.cidade, destaqueTipo: null },
-        { label: "Código da empresa", valor: DADOS_FIXOS.codigoEmpresa, display: DADOS_FIXOS.codigoEmpresa, destaqueTipo: null },
-        { label: "Nome do Funcionário", valor: DADOS_FIXOS.nomeFuncionario, display: DADOS_FIXOS.nomeFuncionario, destaqueTipo: null },
-        { label: "Código Funcionário", valor: DADOS_FIXOS.codigoFuncionario, display: DADOS_FIXOS.codigoFuncionario, destaqueTipo: null },
-        { label: "Nome da Conveniada", valor: DADOS_FIXOS.nomeConveniada, display: DADOS_FIXOS.nomeConveniada, destaqueTipo: null },
-        { label: "PDA", valor: DADOS_FIXOS.pda, display: DADOS_FIXOS.pda, destaqueTipo: null },
-        { label: "Código da Baixa", valor: DADOS_FIXOS.codigoBaixa, display: DADOS_FIXOS.codigoBaixa, destaqueTipo: null },
-        { label: "Tipo de wo", valor: DADOS_FIXOS.tipoWo, display: "Instalação/ Mudança de Pacote", destaqueTipo: null },
-        { label: "Hora de Início", valor: DADOS_FIXOS.horaInicio, display: DADOS_FIXOS.horaInicio, destaqueTipo: null },
-        { label: "Nome do cliente", valor: nome || "-", display: nome || "[Colar nome]", destaqueTipo: "campo" },
-        { label: "Endereço", valor: endereco || "-", display: endereco || "[Colar endereço]", destaqueTipo: "campo" },
-        { label: "O.S", valor: os || "-", display: os || "[Colar O.S]", destaqueTipo: "num" },
-        { label: "Contrato", valor: contrato || "-", display: contrato || "[Colar Contrato]", destaqueTipo: "num" }
-      ];
-    }
-
-    function atualizarRoteiro() {
-      const itens = obterLinhasOrdenadas();
-      roteiroLigacao.innerHTML = itens
-        .map((item) => {
-          let valClass = "script-val";
-          if (item.destaqueTipo === "num") {
-            valClass = "script-val num-destaque-txt";
-          } else if (item.destaqueTipo === "campo") {
-            valClass = "script-val campo-destaque-txt";
-          }
-          return `<div class="script-row"><span class="script-label">${escapeHtml(item.label)}:</span><span class="${valClass}">${escapeHtml(item.display)}</span></div>`;
-        })
-        .join("");
-    }
-
-    function aplicarFormatacaoCampo(key) {
-      if (key === "woNumero") {
-        inputs[key].value = formatarOsDez(inputs[key].value);
-      } else if (key === "contratoNumero") {
-        inputs[key].value = formatarBlocoTres(inputs[key].value);
-      }
-    }
-
-    // Listener de clique direto no input (padrão das versões iniciais)
-    async function colarDaAreaTransferencia(key) {
-      const el = inputs[key];
-      if (!el) return;
-      el.focus();
-
-      if (navigator.clipboard && typeof navigator.clipboard.readText === "function") {
-        try {
-          const textoClipboard = await navigator.clipboard.readText();
-          if (textoClipboard && textoClipboard.trim() !== "") {
-            el.value = textoClipboard.trim();
-            aplicarFormatacaoCampo(key);
-            flashInput(el);
-            atualizarRoteiro();
-            setStatus(`Conteúdo colado em "${nomesCampos[key] || key}".`);
-            return;
-          } else {
-            setStatus("A área de transferência está vazia.", true);
-            return;
-          }
-        } catch (err) {
-          setStatus("Permissão de leitura da área de transferência bloqueada pelo navegador. Use Ctrl+V ou toque em Colar.", true);
-          return;
-        }
-      }
-
-      setStatus("Seu navegador não suporta leitura automática ao clicar. Use Ctrl+V ou toque em Colar.", true);
-    }
-
-    Object.keys(inputs).forEach((key) => {
-      const el = inputs[key];
-      el.addEventListener("click", () => colarDaAreaTransferencia(key));
-      el.addEventListener("input", () => {
-        aplicarFormatacaoCampo(key);
-        atualizarRoteiro();
-      });
-    });
-
-    document.querySelectorAll("[data-clear-field]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const key = btn.getAttribute("data-clear-field");
-        const el = inputs[key];
-        if (!el) return;
-        el.value = "";
-        atualizarRoteiro();
-        setStatus(`Campo "${nomesCampos[key] || key}" limpo.`);
-      });
-    });
-
-    function formatarTextoChamada(overrideData = null) {
-      const itens = obterLinhasOrdenadas(overrideData);
-      return itens.map((item) => `*${item.label}:* ${item.valor}`).join("\n");
-    }
-
-    function montarMensagemWhatsApp() {
-      const texto = formatarTextoChamada();
-      msgPreview.value = texto;
-      setStatus("Mensagem formatada para WhatsApp na ordem do sistema Tivit / Coop.");
-      return texto;
-    }
-
-    function normalizarRegistro(rawItem) {
-      if (!rawItem || typeof rawItem !== "object") return null;
-      const nomeCliente = String(rawItem.nomeCliente ?? rawItem.nome ?? rawItem.cliente ?? "").trim();
-      const enderecoCliente = String(rawItem.enderecoCliente ?? rawItem.endereco ?? "").trim();
-      const osRaw = String(rawItem.woNumero ?? rawItem.os ?? rawItem.wo ?? "").trim();
-      const contratoRaw = String(rawItem.contratoNumero ?? rawItem.contrato ?? "").trim();
-      const woNumero = formatarOsDez(osRaw) || osRaw;
-      const contratoNumero = formatarBlocoTres(contratoRaw) || contratoRaw;
-      const arquivadoEm = String(rawItem.arquivadoEm ?? rawItem.dataHora ?? formatarDataHoraAgora()).trim();
-
-      if (!nomeCliente && !enderecoCliente && !woNumero && !contratoNumero) {
-        return null;
-      }
-
-      const msg =
-        typeof rawItem.mensagemFormatada === "string" && rawItem.mensagemFormatada.trim()
-          ? rawItem.mensagemFormatada
-          : formatarTextoChamada({ nomeCliente, enderecoCliente, woNumero, contratoNumero });
-
-      return {
-        id:
-          typeof rawItem.id === "string" && rawItem.id.trim()
-            ? rawItem.id.trim()
-            : String(Date.now()) + "-" + Math.random().toString(36).slice(2, 7),
-        arquivadoEm,
-        nomeCliente,
-        enderecoCliente,
-        woNumero,
-        contratoNumero,
-        mensagemFormatada: msg
-      };
-    }
-
-    function lerArquivo() {
-      try {
-        let raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) {
-          for (const legacyKey of LEGACY_KEYS) {
-            const legacyRaw = localStorage.getItem(legacyKey);
-            if (legacyRaw) {
-              raw = legacyRaw;
-              localStorage.setItem(STORAGE_KEY, legacyRaw);
-              break;
-            }
-          }
-        }
-        const parsed = raw ? JSON.parse(raw) : [];
-        if (!Array.isArray(parsed)) return [];
-        return parsed.map(normalizarRegistro).filter(Boolean);
-      } catch {
-        return [];
-      }
-    }
-
-    function salvarArquivo(registros) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(registros));
-      } catch {
-        setStatus("Não foi possível salvar no armazenamento local do navegador.", true);
-      }
-    }
-
-    function formatarDataHoraAgora() {
-      const agora = new Date();
-      const pad = (n) => String(n).padStart(2, "0");
-      const dia = pad(agora.getDate());
-      const mes = pad(agora.getMonth() + 1);
-      const ano = String(agora.getFullYear()).slice(-2);
-      const hora = pad(agora.getHours());
-      const min = pad(agora.getMinutes());
-      return `${dia}.${mes}.${ano} - ${hora}:${min}`;
-    }
-
-    function arquivarDadosChamada() {
-      const nome = inputs.nomeCliente.value.trim();
-      const endereco = inputs.enderecoCliente.value.trim();
-      const os = formatarOsDez(inputs.woNumero.value);
-      const contrato = formatarBlocoTres(inputs.contratoNumero.value);
-
-      if (!nome && !endereco && !os && !contrato) {
-        setStatus("Preencha ou cole ao menos um campo da chamada antes de arquivar.", true);
-        return;
-      }
-
-      const registro = normalizarRegistro({
-        id: String(Date.now()) + "-" + Math.random().toString(36).slice(2, 6),
-        arquivadoEm: formatarDataHoraAgora(),
-        nomeCliente: nome,
-        enderecoCliente: endereco,
-        woNumero: os,
-        contratoNumero: contrato
-      });
-
-      const registros = lerArquivo();
-      registros.unshift(registro);
-      salvarArquivo(registros);
-      renderizarArquivo();
-      setStatus(`Chamada arquivada em ${registro.arquivadoEm}.`);
-    }
-
-    function carregarRegistro(id) {
-      const registros = lerArquivo();
-      const item = registros.find((r) => r.id === id);
-      if (!item) return;
-
-      inputs.nomeCliente.value = item.nomeCliente || "";
-      inputs.enderecoCliente.value = item.enderecoCliente || "";
-      inputs.woNumero.value = formatarOsDez(item.woNumero || "");
-      inputs.contratoNumero.value = formatarBlocoTres(item.contratoNumero || "");
-      msgPreview.value = item.mensagemFormatada || formatarTextoChamada();
-      atualizarRoteiro();
-      setStatus(`Dados da chamada de ${item.arquivadoEm} carregados nos campos.`);
-    }
-
-    function excluirRegistro(id) {
-      const registros = lerArquivo().filter((r) => r.id !== id);
-      salvarArquivo(registros);
-      renderizarArquivo();
-      setStatus("Registro removido do arquivo.");
-    }
-
-    function baixarBlob(conteudo, mimeType, nomeArquivo) {
-      const blob = new Blob([conteudo], { type: mimeType });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = nomeArquivo;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
-    }
-
-    function exportarJson() {
-      const registros = lerArquivo();
-      if (!registros.length) {
-        setStatus("Não há chamadas arquivadas para exportar em JSON.", true);
-        return;
-      }
-      const payload = {
-        sistema: "Tivit / Coop",
-        versao: "1.12",
-        exportadoEm: formatarDataHoraAgora(),
-        totalRegistros: registros.length,
-        chamadas: registros
-      };
-      baixarBlob(JSON.stringify(payload, null, 2), "application/json;charset=utf-8", "chamadas-arquivadas-tivit-coop.json");
-      setStatus(`Exportados ${registros.length} registro(s) em JSON.`);
-    }
-
-    function escaparCsvCampo(valor) {
-      const str = String(valor ?? "");
-      const seguro = /^[=+\-@]/.test(str) ? "'" + str : str;
-      return `"${seguro.replace(/"/g, '""')}"`;
-    }
-
-    function exportarCsv() {
-      const registros = lerArquivo();
-      if (!registros.length) {
-        setStatus("Não há chamadas arquivadas para exportar em CSV.", true);
-        return;
-      }
-      const cabecalho = [
-        "ID",
-        "Arquivado em",
-        "Nome do cliente",
-        "Endereço",
-        "O.S",
-        "Contrato",
-        "Mensagem WhatsApp"
-      ].map(escaparCsvCampo).join(";");
-
-      const linhas = registros.map((r) =>
-        [
-          r.id,
-          r.arquivadoEm,
-          r.nomeCliente,
-          r.enderecoCliente,
-          r.woNumero,
-          r.contratoNumero,
-          r.mensagemFormatada
-        ]
-          .map(escaparCsvCampo)
-          .join(";")
-      );
-
-      const csvContent = "﻿" + [cabecalho, ...linhas].join("\r\n");
-      baixarBlob(csvContent, "text/csv;charset=utf-8", "chamadas-arquivadas-tivit-coop.csv");
-      setStatus(`Exportados ${registros.length} registro(s) em CSV.`);
-    }
-
-    function parseCsvLinhas(texto) {
-      const linhas = [];
-      let atual = [];
-      let campo = "";
-      let emAspas = false;
-      const sep = texto.indexOf(";") !== -1 ? ";" : ",";
-
-      for (let i = 0; i < texto.length; i++) {
-        const ch = texto[i];
-        const prox = texto[i + 1];
-
-        if (ch === '"') {
-          if (emAspas && prox === '"') {
-            campo += '"';
-            i++;
-          } else {
-            emAspas = !emAspas;
-          }
-        } else if (ch === sep && !emAspas) {
-          atual.push(campo);
-          campo = "";
-        } else if ((ch === "\n" || ch === "\r") && !emAspas) {
-          if (ch === "\r" && prox === "\n") i++;
-          atual.push(campo);
-          if (atual.some((c) => c.trim() !== "")) {
-            linhas.push(atual);
-          }
-          atual = [];
-          campo = "";
-        } else {
-          campo += ch;
-        }
-      }
-
-      if (campo.length > 0 || atual.length > 0) {
-        atual.push(campo);
-        if (atual.some((c) => c.trim() !== "")) {
-          linhas.push(atual);
-        }
-      }
-      return linhas;
-    }
-
-    function mesclarRegistrosImportados(novosItens, origemRotulo) {
-      const validos = novosItens.map(normalizarRegistro).filter(Boolean);
-      if (!validos.length) {
-        setStatus(`Nenhum registro válido encontrado no arquivo ${origemRotulo}.`, true);
-        return;
-      }
-
-      const atuais = lerArquivo();
-      const idsExistentes = new Set(atuais.map((r) => r.id));
-      let adicionados = 0;
-
-      for (const item of validos) {
-        let candidato = { ...item };
-        if (idsExistentes.has(candidato.id)) {
-          candidato.id = String(Date.now()) + "-" + Math.random().toString(36).slice(2, 7);
-        }
-        idsExistentes.add(candidato.id);
-        atuais.push(candidato);
-        adicionados++;
-      }
-
-      salvarArquivo(atuais);
-      renderizarArquivo();
-      setStatus(`Importados ${adicionados} registro(s) de ${origemRotulo}.`);
-    }
-
-    function processarImportacaoJson(texto) {
-      const parsed = JSON.parse(texto);
-      const lista = Array.isArray(parsed)
-        ? parsed
-        : Array.isArray(parsed?.chamadas)
-          ? parsed.chamadas
-          : Array.isArray(parsed?.registros)
-            ? parsed.registros
-            : [];
-      mesclarRegistrosImportados(lista, "JSON");
-    }
-
-    function processarImportacaoCsv(texto) {
-      const limpo = texto.replace(/^﻿/, "");
-      const linhas = parseCsvLinhas(limpo);
-      if (!linhas.length) {
-        setStatus("Arquivo CSV vazio.", true);
-        return;
-      }
-
-      const headerNormalizado = linhas[0].map((h) => h.trim().toLowerCase());
-      const temCabecalho = headerNormalizado.some((h) =>
-        ["nome", "nome do cliente", "o.s", "os", "wo", "contrato", "endereço", "endereco", "arquivado em"].includes(h)
-      );
-
-      const startIdx = temCabecalho ? 1 : 0;
-      const items = [];
-
-      for (let i = startIdx; i < linhas.length; i++) {
-        const cols = linhas[i];
-        if (temCabecalho) {
-          const obj = {};
-          headerNormalizado.forEach((h, idx) => {
-            obj[h] = cols[idx] ?? "";
-          });
-          items.push({
-            id: obj["id"] || "",
-            arquivadoEm: obj["arquivado em"] || obj["arquivadoem"] || obj["datahora"] || "",
-            nomeCliente: obj["nome do cliente"] || obj["nome"] || obj["cliente"] || "",
-            enderecoCliente: obj["endereço"] || obj["endereco"] || "",
-            woNumero: obj["o.s"] || obj["os"] || obj["wo"] || "",
-            contratoNumero: obj["contrato"] || "",
-            mensagemFormatada: obj["mensagem whatsapp"] || obj["mensagemformatada"] || ""
-          });
-        } else {
-          items.push({
-            arquivadoEm: cols[0] || "",
-            nomeCliente: cols[1] || "",
-            enderecoCliente: cols[2] || "",
-            woNumero: cols[3] || "",
-            contratoNumero: cols[4] || ""
-          });
-        }
-      }
-
-      mesclarRegistrosImportados(items, "CSV");
-    }
-
-    function gerarPdfBytes(registros) {
-      const sanitizePdfText = (s) =>
-        String(s || "")
-          .normalize("NFD")
-          .replace(/[̀-ͯ]/g, "")
-          .replace(/[^ -~]/g, " ")
-          .replace(/\/g, "\\")
-          .replace(/\(/g, "\(")
-          .replace(/\)/g, "\)");
-
-      const wrapText = (text, maxChars) => {
-        const words = String(text || "-").split(/\s+/);
-        const lines = [];
-        let cur = "";
-        for (const w of words) {
-          if (!cur) {
-            cur = w;
-          } else if ((cur + " " + w).length <= maxChars) {
-            cur += " " + w;
-          } else {
-            lines.push(cur);
-            cur = w;
-          }
-        }
-        if (cur) lines.push(cur);
-        return lines.length ? lines : ["-"];
-      };
-
-      const pagesStreams = [];
-      let stream = [];
-      let y = 780;
-
-      const startPage = () => {
-        stream = [];
-        y = 780;
-        stream.push("BT /F1 15 Tf 40 795 Td (Relatorio de Chamadas Arquivadas - Tivit / Coop) Tj ET");
-        stream.push("BT /F1 9 Tf 40 780 Td (" + sanitizePdfText("Gerado em: " + formatarDataHoraAgora() + " | Total: " + registros.length) + ") Tj ET");
-        stream.push("0.5 w 40 770 m 555 770 l S");
-        y = 752;
-      };
-
-      const flushPage = () => {
-        pagesStreams.push(stream.join("\n"));
-      };
-
-      startPage();
-
-      registros.forEach((r, idx) => {
-        const titulo = "Chamada #" + (registros.length - idx) + " - " + (r.arquivadoEm || "-");
-        const nomeLinhas = wrapText("Cliente: " + (r.nomeCliente || "-"), 68);
-        const endLinhas = wrapText("Endereco: " + (r.enderecoCliente || "-"), 68);
-        const numLinha = "O.S: " + (r.woNumero || "-") + "    |    Contrato: " + (r.contratoNumero || "-");
-        const blocoAltura = 18 + nomeLinhas.length * 13 + endLinhas.length * 13 + 16 + 14;
-
-        if (y - blocoAltura < 50) {
-          flushPage();
-          startPage();
-        }
-
-        stream.push("BT /F2 11 Tf 40 " + y + " Td (" + sanitizePdfText(titulo) + ") Tj ET");
-        y -= 15;
-
-        for (const nl of nomeLinhas) {
-          stream.push("BT /F1 10 Tf 48 " + y + " Td (" + sanitizePdfText(nl) + ") Tj ET");
-          y -= 13;
-        }
-
-        for (const el of endLinhas) {
-          stream.push("BT /F1 10 Tf 48 " + y + " Td (" + sanitizePdfText(el) + ") Tj ET");
-          y -= 13;
-        }
-
-        stream.push("BT /F2 10 Tf 48 " + y + " Td (" + sanitizePdfText(numLinha) + ") Tj ET");
-        y -= 14;
-
-        stream.push("0.3 w 48 " + y + " m 550 " + y + " l S");
-        y -= 14;
-      });
-
-      flushPage();
-
-      const objects = [];
-      const addObj = (body) => {
-        objects.push(body);
-        return objects.length;
-      };
-
-      const catalogId = addObj("");
-      const pagesId = addObj("");
-      const font1Id = addObj("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>");
-      const font2Id = addObj("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>");
-
-      const pageIds = [];
-      for (const st of pagesStreams) {
-        const contentId = addObj("<< /Length " + st.length + " >>\nstream\n" + st + "\nendstream");
-        const pageId = addObj(
-          "<< /Type /Page /Parent " +
-            pagesId +
-            " 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 " +
-            font1Id +
-            " 0 R /F2 " +
-            font2Id +
-            " 0 R >> >> /Contents " +
-            contentId +
-            " 0 R >>"
-        );
-        pageIds.push(pageId);
-      }
-
-      objects[catalogId - 1] = "<< /Type /Catalog /Pages " + pagesId + " 0 R >>";
-      objects[pagesId - 1] =
-        "<< /Type /Pages /Kids [" +
-        pageIds.map((id) => id + " 0 R").join(" ") +
-        "] /Count " +
-        pageIds.length +
-        " >>";
-
-      let pdf = "%PDF-1.4\n";
-      const offsets = [0];
-
-      for (let i = 0; i < objects.length; i++) {
-        offsets.push(pdf.length);
-        pdf += (i + 1) + " 0 obj\n" + objects[i] + "\nendobj\n";
-      }
-
-      const xrefPos = pdf.length;
-      pdf += "xref\n0 " + (objects.length + 1) + "\n";
-      pdf += "0000000000 65535 f \n";
-      for (let i = 1; i <= objects.length; i++) {
-        pdf += String(offsets[i]).padStart(10, "0") + " 00000 n \n";
-      }
-      pdf += "trailer\n<< /Size " + (objects.length + 1) + " /Root " + catalogId + " 0 R >>\nstartxref\n" + xrefPos + "\n%%EOF";
-
-      return new Blob([pdf], { type: "application/pdf" });
-    }
-
-    function baixarPdf() {
-      const registros = lerArquivo();
-      if (!registros.length) {
-        setStatus("Não há chamadas arquivadas para baixar em PDF.", true);
-        return;
-      }
-      const pdfBlob = gerarPdfBytes(registros);
-      const url = URL.createObjectURL(pdfBlob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "chamadas-arquivadas-tivit-coop.pdf";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
-      setStatus("PDF de chamadas arquivadas baixado com sucesso.");
-    }
-
-    function renderizarArquivo() {
-      const registros = lerArquivo();
-      if (!registros.length) {
-        listaArquivadas.innerHTML = `<div class="archive-empty">Nenhuma chamada arquivada ainda. Clique em "Arquivar dados da chamada" ou importe um arquivo JSON/CSV.</div>`;
-        return;
-      }
-
-      listaArquivadas.innerHTML = registros
-        .map(
-          (r) => `
-          <div class="archive-card">
-            <div class="archive-top">
-              <span class="archive-meta">Arquivado em: ${escapeHtml(r.arquivadoEm)}</span>
-              <div class="archive-item-btns">
-                <button type="button" class="btn-mini" data-load="${escapeHtml(r.id)}">Carregar</button>
-                <button type="button" class="btn-mini" data-copy-id="${escapeHtml(r.id)}">Copiar Wpp</button>
-                <button type="button" class="btn-mini danger" data-del="${escapeHtml(r.id)}">Excluir</button>
-              </div>
+  <main>
+    <!-- 1. GAMES -->
+    <section id="games">
+      <div class="section-header">
+        <h2>🎮 Games</h2>
+        <p>Reviews, nostalgia em mídia física e performance</p>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <span class="tag" style="color: #c084fc; background: rgba(168, 85, 247, 0.15);">Mídia Física</span>
+          <h3>Preservação &amp; Colecionismo</h3>
+          <p>O processo de prensagem de discos ópticos, cartuchos clássicos e o valor da mídia física frente ao digital.</p>
+        </article>
+        <article class="card">
+          <span class="tag" style="color: #c084fc; background: rgba(168, 85, 247, 0.15);">Rede &amp; Latência</span>
+          <h3>Otimização para Jogos Online</h3>
+          <p>Como jitter, perda de pacotes e qualidade do sinal DOCSIS/Fibra impactam partidas competitivas em tempo real.</p>
+        </article>
+        <article class="card">
+          <span class="tag" style="color: #c084fc; background: rgba(168, 85, 247, 0.15);">Clássicos &amp; Ação</span>
+          <h3>Biblioteca Favorita</h3>
+          <p>De RPGs táticos e corridas arcade a títulos de sobrevivência e campanhas cooperativas marcantes.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 2. GALERIA -->
+    <section id="galeria">
+      <div class="section-header">
+        <h2>📸 Galeria</h2>
+        <p>Clique em qualquer imagem para ampliar</p>
+      </div>
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="telecom">Telecom &amp; Campo</button>
+        <button class="filter-btn" data-filter="dev">Dev &amp; Apps</button>
+        <button class="filter-btn" data-filter="setup">Setup &amp; Hardware</button>
+      </div>
+      <div class="gallery-grid" id="galleryGrid">
+        <div class="gallery-item" data-cat="telecom" data-title="Infraestrutura de Rede &amp; Cabeamento Estruturado">
+          <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80" alt="Cabeamento de rede" />
+          <div class="gallery-caption">Infraestrutura &amp; Cabeamento</div>
+        </div>
+        <div class="gallery-item" data-cat="dev" data-title="Desenvolvimento Web Mobile-First">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" alt="Código fonte" />
+          <div class="gallery-caption">Utilitários Web &amp; GitHub</div>
+        </div>
+        <div class="gallery-item" data-cat="setup" data-title="Estação de Trabalho &amp; Testes">
+          <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=800&q=80" alt="Setup hardware" />
+          <div class="gallery-caption">Bancada &amp; Diagnóstico</div>
+        </div>
+        <div class="gallery-item" data-cat="telecom" data-title="Análise de Espectro &amp; Conectividade Wi-Fi">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" alt="Placa eletrônica" />
+          <div class="gallery-caption">Hardware &amp; RF</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. TIMÃO -->
+    <section id="timao">
+      <div class="section-header">
+        <h2>⚽ Timão</h2>
+        <p>Sport Club Corinthians Paulista • Paixão em Preto e Branco</p>
+      </div>
+      <div class="timao-banner">
+        <svg class="timao-crest" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Escudo Estilizado Timão">
+          <circle cx="60" cy="60" r="54" fill="#09090b" stroke="#ffffff" stroke-width="4"/>
+          <circle cx="60" cy="60" r="44" stroke="#ef4444" stroke-width="2" stroke-dasharray="6 4"/>
+          <text x="60" y="54" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="900" font-family="sans-serif">SCCP</text>
+          <text x="60" y="74" text-anchor="middle" fill="#a1a1aa" font-size="11" font-weight="700" font-family="sans-serif">1910</text>
+        </svg>
+        <div>
+          <span class="tag" style="background: rgba(255,255,255,0.12); color: #fff;">Todo Poderoso Timão</span>
+          <h3 style="font-size: 1.5rem; margin-bottom: 0.4rem;">Aqui tem um bando de loucos!</h3>
+          <p style="color: #d4d4d8; max-width: 650px;">Bicampeão Mundial, Campeão Invicto da Libertadores e dono da torcida mais fiel do mundo. Deixe seu grito de incentivo no mural abaixo.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>🏆 Sala de Troféus Histórica</h3>
+          <p style="margin-top: 0.5rem;">• 2x Mundial de Clubes FIFA (2000, 2012)<br>• 1x Copa Libertadores Invicta (2012)<br>• 7x Campeonato Brasileiro<br>• 30+ Campeonatos Paulistas</p>
+        </div>
+        <div class="card">
+          <h3>📣 Mural da Fiel</h3>
+          <p>Escreva uma mensagem de apoio ao Corinthians:</p>
+          <form class="mural-form" id="muralForm">
+            <input type="text" id="muralInput" placeholder="Ex: Vai Corinthians! Rumo à vitória!" maxlength="90" required />
+            <button type="submit" class="btn-primary" style="background: #fff; color: #09090b; padding: 0.6rem 1.1rem;">Postar</button>
+          </form>
+          <div class="mural-list" id="muralList">
+            <div class="mural-msg"><strong>Fernando Sato:</strong> Vai, Corinthians! Nunca foi fácil, sempre foi na raça!</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. TRABALHO -->
+    <section id="trabalho">
+      <div class="section-header">
+        <h2>🛠️ Trabalho</h2>
+        <p>Telecomunicações de campo e desenvolvimento de ferramentas web</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <span class="tag">HFC / DOCSIS &amp; Fibra</span>
+          <h3>Engenharia de Campo Telecom</h3>
+          <p>Instalação, certificação de sinal RF (Tx/Rx/SNR), cabeamento coaxial RG6, provisionamento de eMTAs, ONTs, decoders e otimização Wi-Fi Dual Band.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Apps Web Mobile</span>
+          <h3>Automação Operacional</h3>
+          <p>Criação de aplicações web responsivas com leitura de código de barras e OCR via câmera para controle de equipamentos e diagnósticos em campo.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Produtividade &amp; Dados</span>
+          <h3>Exportação &amp; Relatórios</h3>
+          <p>Soluções leves hospedadas via HTTPS no GitHub Pages com armazenamento local e exportação rápida em JSON, CSV e PDF.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. DOWNLOAD -->
+    <section id="download">
+      <div class="section-header">
+        <h2>📥 Download</h2>
+        <p>Arquivos de referência rápida gerados localmente</p>
+      </div>
+      <div class="grid-2">
+        <div class="card download-row">
+          <div>
+            <h3>Tabela de Níveis RF (DOCSIS 3.0 / 3.1)</h3>
+            <p>Parâmetros de referência Tx, Rx, SNR DS e SNR UP em formato TXT.</p>
+          </div>
+          <button class="btn-download" data-file="niveis-rf-docsis.txt">Baixar TXT</button>
+        </div>
+        <div class="card download-row">
+          <div>
+            <h3>Checklist de Atendimento Técnico</h3>
+            <p>Roteiro prático de verificação física, sinal e Wi-Fi em formato JSON.</p>
+          </div>
+          <button class="btn-download" data-file="checklist-campo.json">Baixar JSON</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. LINKS -->
+    <section id="links">
+      <div class="section-header">
+        <h2>🔗 Links</h2>
+        <p>Atalhos rápidos e repositórios</p>
+      </div>
+      <div class="links-stack">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="link-pill">
+          <span>🐙 GitHub — Repositórios &amp; Projetos Web</span>
+          <span>↗</span>
+        </a>
+        <a href="#trabalho" class="link-pill">
+          <span>📡 Portfólio Técnico &amp; Ferramentas Telecom</span>
+          <span>→</span>
+        </a>
+        <a href="#download" class="link-pill">
+          <span>📦 Central de Downloads Técnicos</span>
+          <span>→</span>
+        </a>
+        <a href="#contato" class="link-pill">
+          <span>💬 Canal Direto de Contato</span>
+          <span>→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 7. CONTATO -->
+    <section id="contato">
+      <div class="section-header">
+        <h2>✉️ Contato</h2>
+        <p>Envie sua mensagem diretamente pelo formulário</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="nome">Seu Nome</label>
+              <input type="text" id="nome" placeholder="Digite seu nome" required />
             </div>
-            <div class="archive-summary">
-              <strong>Cliente:</strong> ${escapeHtml(r.nomeCliente || "-")} |
-              <strong>O.S:</strong> <span class="archive-num">${escapeHtml(r.woNumero || "-")}</span> |
-              <strong>Contrato:</strong> <span class="archive-num">${escapeHtml(r.contratoNumero || "-")}</span><br />
-              <strong>Endereço:</strong> ${escapeHtml(r.enderecoCliente || "-")}
+            <div class="form-group">
+              <label for="email">Seu E-mail</label>
+              <input type="email" id="email" placeholder="seuemail@exemplo.com" required />
+            </div>
+            <div class="form-group">
+              <label for="mensagem">Mensagem</label>
+              <textarea id="mensagem" rows="4" placeholder="Escreva sua mensagem..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary">Enviar Mensagem</button>
+          </form>
+        </div>
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h3>Informações Diretas</h3>
+            <p style="margin-top: 0.6rem;">Disponível para troca de experiências sobre telecomunicações, desenvolvimento de utilitários web para campo e projetos no GitHub.</p>
+            <div style="margin-top: 1.5rem; padding: 1rem; background: var(--bg); border-radius: 10px; border: 1px solid var(--border);">
+              <p style="font-size: 0.85rem;">Localização</p>
+              <p style="color: var(--text); font-weight: 700;">São Paulo — SP, Brasil</p>
             </div>
           </div>
-        `
-        )
-        .join("");
+          <button type="button" class="btn-primary" id="copyHandleBtn" style="margin-top: 1.5rem; background: var(--bg-card-hover); color: var(--text); border: 1px solid var(--border); box-shadow: none;">
+            📋 Copiar Identificação (@fernandosato)
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
 
-      listaArquivadas.querySelectorAll("[data-load]").forEach((btn) => {
-        btn.addEventListener("click", () => carregarRegistro(btn.getAttribute("data-load")));
-      });
+  <!-- RODAPÉ COM CONTROLE ESTÁTICO DE REVISÃO -->
+  <footer>
+    <p class="footer-version" id="footerRevision" data-version="1.1" data-updated="24/11/2026 20:37">
+      Criado por: Fernando Sato - Versão 1.1 - 24/11/2026 20:37
+    </p>
+  </footer>
 
-      listaArquivadas.querySelectorAll("[data-del]").forEach((btn) => {
-        btn.addEventListener("click", () => excluirRegistro(btn.getAttribute("data-del")));
-      });
+  <!-- MODAL GALERIA -->
+  <div class="modal" id="galleryModal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <img id="modalImg" src="" alt="Imagem ampliada" />
+      <div class="modal-footer">
+        <strong id="modalTitle">Título</strong>
+        <button class="filter-btn" id="closeModal">Fechar ✕</button>
+      </div>
+    </div>
+  </div>
 
-      listaArquivadas.querySelectorAll("[data-copy-id]").forEach((btn) => {
-        btn.addEventListener("click", async () => {
-          const item = lerArquivo().find((r) => r.id === btn.getAttribute("data-copy-id"));
-          if (!item) return;
-          const texto = item.mensagemFormatada || formatarTextoChamada(item);
-          try {
-            await navigator.clipboard.writeText(texto);
-            setStatus("Mensagem arquivada copiada para a área de transferência.");
-          } catch {
-            msgPreview.value = texto;
-            msgPreview.select();
-            document.execCommand("copy");
-            setStatus("Mensagem arquivada copiada.");
-          }
-        });
-      });
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // Toast Helper
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
     }
 
-    document.getElementById("btnArquivarChamada").addEventListener("click", arquivarDadosChamada);
-    document.getElementById("btnExportarJson").addEventListener("click", exportarJson);
-    document.getElementById("btnExportarCsv").addEventListener("click", exportarCsv);
-    document.getElementById("btnBaixarPdf").addEventListener("click", baixarPdf);
-
-    document.getElementById("btnImportarJson").addEventListener("click", () => {
-      inputImportJson.value = "";
-      inputImportJson.click();
+    // Mobile Menu
+    const menuToggle = document.getElementById("menuToggle");
+    const navMenu = document.getElementById("navMenu");
+    menuToggle.addEventListener("click", () => navMenu.classList.toggle("open"));
+    navMenu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => navMenu.classList.remove("open"));
     });
 
-    document.getElementById("btnImportarCsv").addEventListener("click", () => {
-      inputImportCsv.value = "";
-      inputImportCsv.click();
+    // Hero Carousel
+    const track = document.getElementById("slidesTrack");
+    const slides = Array.from(track.children);
+    const dotsContainer = document.getElementById("carouselDots");
+    let currentSlide = 0;
+    let autoPlayTimer;
+
+    slides.forEach((_, idx) => {
+      const dot = document.createElement("button");
+      dot.className = "dot" + (idx === 0 ? " active" : "");
+      dot.setAttribute("aria-label", `Ir para slide ${idx + 1}`);
+      dot.addEventListener("click", () => goToSlide(idx));
+      dotsContainer.appendChild(dot);
     });
 
-    inputImportJson.addEventListener("change", (e) => {
-      const file = e.target.files && e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        try {
-          processarImportacaoJson(String(reader.result || ""));
-        } catch {
-          setStatus("Erro ao ler o arquivo JSON. Verifique se o formato é válido.", true);
-        }
-      };
-      reader.readAsText(file, "utf-8");
-    });
+    const dots = Array.from(dotsContainer.children);
 
-    inputImportCsv.addEventListener("change", (e) => {
-      const file = e.target.files && e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        try {
-          processarImportacaoCsv(String(reader.result || ""));
-        } catch {
-          setStatus("Erro ao ler o arquivo CSV.", true);
-        }
-      };
-      reader.readAsText(file, "utf-8");
-    });
+    function goToSlide(index) {
+      currentSlide = (index + slides.length) % slides.length;
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle("active", i === currentSlide));
+    }
 
-    document.getElementById("btnExportarArquivo").addEventListener("click", () => {
-      const registros = lerArquivo();
-      if (!registros.length) {
-        setStatus("Não há chamadas arquivadas para baixar.", true);
-        return;
-      }
-      const conteudo = registros
-        .map((r, idx) => `=== CHAMADA #${registros.length - idx} (${r.arquivadoEm}) ===\n${r.mensagemFormatada}`)
-        .join("\n\n");
-      baixarBlob(conteudo, "text/plain;charset=utf-8", "chamadas-arquivadas-tivit-coop.txt");
-      setStatus("Arquivo de chamadas arquivadas baixado (.txt).");
-    });
+    document.getElementById("prevSlide").addEventListener("click", () => goToSlide(currentSlide - 1));
+    document.getElementById("nextSlide").addEventListener("click", () => goToSlide(currentSlide + 1));
 
-    document.getElementById("btnLimparArquivo").addEventListener("click", () => {
-      salvarArquivo([]);
-      renderizarArquivo();
-      setStatus("Histórico de chamadas arquivadas limpo.");
-    });
+    function startAutoPlay() {
+      autoPlayTimer = setInterval(() => goToSlide(currentSlide + 1), 5500);
+    }
+    function stopAutoPlay() {
+      clearInterval(autoPlayTimer);
+    }
 
-    document.getElementById("btnFormatarWpp").addEventListener("click", () => {
-      montarMensagemWhatsApp();
-    });
+    const carouselEl = document.getElementById("topo");
+    carouselEl.addEventListener("mouseenter", stopAutoPlay);
+    carouselEl.addEventListener("mouseleave", startAutoPlay);
+    startAutoPlay();
 
-    document.getElementById("btnAbrirWpp").addEventListener("click", () => {
-      const texto = msgPreview.value.trim() || montarMensagemWhatsApp();
-      if (!texto) return;
-      const url = "https://wa.me/?text=" + encodeURIComponent(texto);
-      window.open(url, "_blank", "noopener,noreferrer");
-    });
+    // Touch Swipe no Carrossel
+    let touchStartX = 0;
+    carouselEl.addEventListener("touchstart", e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+    carouselEl.addEventListener("touchend", e => {
+      const diff = touchStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 45) goToSlide(currentSlide + (diff > 0 ? 1 : -1));
+    }, { passive: true });
 
-    document.getElementById("btnCopiar").addEventListener("click", async () => {
-      const texto = msgPreview.value.trim() || montarMensagemWhatsApp();
-      if (!texto) return;
-      try {
-        await navigator.clipboard.writeText(texto);
-        setStatus("Mensagem formatada copiada para a área de transferência.");
-      } catch {
-        msgPreview.select();
-        document.execCommand("copy");
-        setStatus("Mensagem selecionada/copiada.");
-      }
-    });
-
-    document.getElementById("btnLimpar").addEventListener("click", () => {
-      Object.values(inputs).forEach((el) => {
-        el.value = "";
+    // Scroll Spy na Navbar
+    const sections = document.querySelectorAll("main section");
+    const navLinks = document.querySelectorAll("nav a[data-nav]");
+    window.addEventListener("scroll", () => {
+      let current = "";
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 130) current = sec.getAttribute("id");
       });
-      msgPreview.value = "";
-      atualizarRoteiro();
-      setStatus("Campos variáveis limpos.");
+      navLinks.forEach(a => a.classList.toggle("active", a.dataset.nav === current));
     });
 
-    atualizarRoteiro();
-    renderizarArquivo();
+    // Filtro & Lightbox da Galeria
+    const filterBtns = document.querySelectorAll(".filter-btn[data-filter]");
+    const galleryItems = document.querySelectorAll(".gallery-item");
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        filterBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const filter = btn.dataset.filter;
+        galleryItems.forEach(item => {
+          item.style.display = (filter === "all" || item.dataset.cat === filter) ? "block" : "none";
+        });
+      });
+    });
+
+    const modal = document.getElementById("galleryModal");
+    const modalImg = document.getElementById("modalImg");
+    const modalTitle = document.getElementById("modalTitle");
+
+    galleryItems.forEach(item => {
+      item.addEventListener("click", () => {
+        modalImg.src = item.querySelector("img").src;
+        modalTitle.textContent = item.dataset.title;
+        modal.classList.add("open");
+      });
+    });
+
+    document.getElementById("closeModal").addEventListener("click", () => modal.classList.remove("open"));
+    modal.addEventListener("click", e => { if (e.target === modal) modal.classList.remove("open"); });
+
+    // Mural do Timão
+    document.getElementById("muralForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const input = document.getElementById("muralInput");
+      const text = input.value.trim();
+      if (!text) return;
+      const div = document.createElement("div");
+      div.className = "mural-msg";
+      div.innerHTML = `<strong>Torcedor Fiel:</strong> ${text.replace(/</g, "&lt;")}`;
+      document.getElementById("muralList").prepend(div);
+      input.value = "";
+      showToast("Grito registrado no Mural da Fiel!");
+    });
+
+    // Downloads Funcionais
+    const filesMap = {
+      "niveis-rf-docsis.txt": "REFERENCIA DE NIVEIS RF - HFC / DOCSIS 3.0 & 3.1\n===================================================\nTx (Upstream): 38 dBmV a 51 dBmV\nRx (Downstream): -12 dBmV a +12 dBmV\nSNR Downstream: > 35 dB\nSNR Upstream: > 27 dB\n",
+      "checklist-campo.json": JSON.stringify({
+        projeto: "Checklist de Campo Telecom",
+        etapas: [
+          "Inspecionar conectores RG6 e divisores",
+          "Medir níveis Tx, Rx e SNR no eMTA/Decoder",
+          "Validar canais 2.4 GHz e 5 GHz no Gateway",
+          "Confirmar navegação e velocidade com o cliente"
+        ]
+      }, null, 2)
+    };
+
+    document.querySelectorAll(".btn-download").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const filename = btn.dataset.file;
+        const blob = new Blob([filesMap[filename]], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast(`Download iniciado: ${filename}`);
+      });
+    });
+
+    // Contato & Clipboard
+    document.getElementById("contactForm").addEventListener("submit", e => {
+      e.preventDefault();
+      showToast("Mensagem enviada com sucesso!");
+      e.target.reset();
+    });
+
+    document.getElementById("copyHandleBtn").addEventListener("click", () => {
+      navigator.clipboard?.writeText("Fernando Sato (@fernandosato)");
+      showToast("Identificação copiada para a área de transferência!");
+    });
   </script>
 </body>
 </html>
