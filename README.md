@@ -17,37 +17,18 @@ Landing page responsiva em página única (*Single Page Application* estática),
 
 ```text
 ├── index.html                    # Código completo da Landing Page (HTML + CSS + JS)
-├── README.md                     # Documentação do projeto
-└── scripts/
-    └── atualizar-revisao.py      # Script para atualizar versão, data e hora no rodapé ao editar o código
+└── README.md                     # Documentação do projeto
 ```
 
 ## Controle de Versão no Rodapé
 
-O rodapé exibe o texto fixo da última revisão gravada no código-fonte:
+O rodapé exibe o texto estático da última revisão gravada diretamente no `index.html`:
 
 ```text
-Criado por: Fernando Sato - Versão 1.1 - 24/11/2026 20:37
+Criado por: Fernando Sato - Versão 1.2 - 26/11/2026 20:59
 ```
 
-Para evitar alterações falsas a cada visualização no navegador, **a versão, data e hora não utilizam `new Date()` em tempo real**. Elas permanecem estáticas no HTML e são atualizadas apenas quando você edita uma nova revisão.
-
-### Como atualizar a versão ao editar o projeto
-
-1. **Via script Python (recomendado):**
-   Execute o script incluído na pasta `scripts/` antes de fazer o *commit*:
-   ```bash
-   python scripts/atualizar-revisao.py 1.2
-   ```
-   O script grava a versão informada junto com a data e hora da edição no bloco `#footerRevision` do `index.html`.
-
-2. **Manualmente:**
-   Edite a tag `<footer>` no arquivo `index.html`:
-   ```html
-   <p class="footer-version" id="footerRevision" data-version="1.2" data-updated="DD/MM/AAAA HH:MM">
-     Criado por: Fernando Sato - Versão 1.2 - DD/MM/AAAA HH:MM
-   </p>
-   ```
+Para evitar alterações a cada visualização no navegador, **a versão, data e hora não utilizam `new Date()` em tempo real**. Elas permanecem fixas no HTML e são atualizadas diretamente aqui a cada nova revisão solicitada.
 
 ## Publicação no GitHub Pages
 
