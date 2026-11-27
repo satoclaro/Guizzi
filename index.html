@@ -304,6 +304,20 @@
       font-size: 0.95rem;
     }
 
+    .subsection-block {
+      margin-top: 2rem;
+    }
+
+    .subsection-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
     .grid-3 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -593,6 +607,47 @@
       border-color: var(--accent);
     }
 
+    /* SEÇÃO SECRETA (INVISÍVEL ATÉ SELECIONAR) */
+    .secret-zone {
+      margin-top: 2.5rem;
+      padding: 1.5rem;
+      background-color: var(--bg);
+      color: var(--bg);
+      border-radius: var(--radius);
+    }
+
+    .secret-zone *,
+    .secret-zone a,
+    .secret-zone h2,
+    .secret-zone h3,
+    .secret-zone p,
+    .secret-zone span {
+      color: var(--bg);
+      background-color: var(--bg);
+      border-color: var(--bg);
+      box-shadow: none;
+    }
+
+    .secret-zone ::selection,
+    .secret-zone a::selection,
+    .secret-zone h2::selection,
+    .secret-zone h3::selection,
+    .secret-zone p::selection,
+    .secret-zone span::selection {
+      color: #f8fafc;
+      background-color: #2563eb;
+    }
+
+    .secret-zone ::-moz-selection,
+    .secret-zone a::-moz-selection,
+    .secret-zone h2::-moz-selection,
+    .secret-zone h3::-moz-selection,
+    .secret-zone p::-moz-selection,
+    .secret-zone span::-moz-selection {
+      color: #f8fafc;
+      background-color: #2563eb;
+    }
+
     /* LIGHTBOX MODAL */
     .modal {
       position: fixed;
@@ -817,6 +872,42 @@
           <p>De RPGs táticos e corridas arcade a títulos de sobrevivência e campanhas cooperativas marcantes.</p>
         </article>
       </div>
+
+      <div class="subsection-block">
+        <h3 class="subsection-title">🕹️ Subseções de Games</h3>
+        <div class="grid-3">
+          <article id="sub-arcade" class="card">
+            <span class="tag" style="color: #c084fc; background: rgba(168, 85, 247, 0.15);">Subseção</span>
+            <h3>Arcade</h3>
+            <p>Clássicos de fliperama, beat 'em ups, shoot 'em ups e alta pontuação.</p>
+          </article>
+          <article id="sub-nintendo" class="card">
+            <span class="tag" style="color: #c084fc; background: rgba(168, 85, 247, 0.15);">Subseção</span>
+            <h3>Nintendo</h3>
+            <p>Títulos icônicos de 8 bits, portáteis e franquias clássicas da Nintendo.</p>
+          </article>
+          <article id="sub-super-nes" class="card">
+            <span class="tag" style="color: #c084fc; background: rgba(168, 85, 247, 0.15);">Subseção</span>
+            <h3>Super Nes</h3>
+            <p>A era de ouro dos 16 bits, trilhas sonoras marcantes e RPGs memoráveis.</p>
+          </article>
+          <article id="sub-mega-drive" class="card">
+            <span class="tag" style="color: #c084fc; background: rgba(168, 85, 247, 0.15);">Subseção</span>
+            <h3>Mega Drive</h3>
+            <p>Velocidade, ação arcade e clássicos essenciais do console 16 bits.</p>
+          </article>
+          <article id="sub-emuladores" class="card">
+            <span class="tag" style="color: #c084fc; background: rgba(168, 85, 247, 0.15);">Subseção</span>
+            <h3>Emuladores</h3>
+            <p>Configuração de cores, shaders, filtros CRT, latência e perfis por sistema.</p>
+          </article>
+          <article id="sub-roms" class="card">
+            <span class="tag" style="color: #c084fc; background: rgba(168, 85, 247, 0.15);">Subseção</span>
+            <h3>Roms</h3>
+            <p>Organização de bibliotecas, verificação de integridade, traduções e backups pessoais.</p>
+          </article>
+        </div>
+      </div>
     </section>
 
     <!-- 2. GALERIA -->
@@ -871,7 +962,33 @@
         </div>
       </div>
 
-      <div class="grid-2">
+      <div class="subsection-block">
+        <h3 class="subsection-title">🖤 Subseções do Timão</h3>
+        <div class="grid-2">
+          <article id="sub-historia" class="card">
+            <span class="tag" style="background: rgba(255,255,255,0.12); color: #fff;">História</span>
+            <h3>História</h3>
+            <p>Fundado em 1º de setembro de 1910 no Bom Retiro, o Corinthians construiu uma trajetória popular, democrática e inesquecível.</p>
+          </article>
+          <article id="sub-titulos" class="card">
+            <span class="tag" style="background: rgba(255,255,255,0.12); color: #fff;">Títulos</span>
+            <h3>Títulos</h3>
+            <p>2x Mundial de Clubes FIFA (2000, 2012), Libertadores Invicta (2012), 7x Brasileiro, 3x Copa do Brasil e mais de 30 Paulistas.</p>
+          </article>
+          <article id="sub-timao-fotos" class="card">
+            <span class="tag" style="background: rgba(255,255,255,0.12); color: #fff;">Fotos</span>
+            <h3>Fotos</h3>
+            <p>Registros de arquibancada, festa da Fiel, camisas históricas e momentos marcantes em preto e branco.</p>
+          </article>
+          <article id="sub-timao-wallpaper" class="card">
+            <span class="tag" style="background: rgba(255,255,255,0.12); color: #fff;">Wallpaper</span>
+            <h3>Wallpaper</h3>
+            <p>Papéis de parede temáticos em alta resolução para desktop e smartphone com identidade alvinegra.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top: 1.5rem;">
         <div class="card">
           <h3>🏆 Sala de Troféus Histórica</h3>
           <p style="margin-top: 0.5rem;">• 2x Mundial de Clubes FIFA (2000, 2012)<br>• 1x Copa Libertadores Invicta (2012)<br>• 7x Campeonato Brasileiro<br>• 30+ Campeonatos Paulistas</p>
@@ -955,6 +1072,44 @@
           <button class="btn-download" data-file="checklist-campo.json">Baixar JSON</button>
         </div>
       </div>
+
+      <div class="subsection-block">
+        <h3 class="subsection-title">📂 Subseções de Download</h3>
+        <div class="grid-2">
+          <article id="dl-games" class="card download-row">
+            <div>
+              <span class="tag" style="color: #34d399; background: rgba(16, 185, 129, 0.15);">Games</span>
+              <h3>Games</h3>
+              <p>Listas de setups, mapas de controles e guias de emulação.</p>
+            </div>
+            <button class="btn-download" data-file="guia-games.txt">Baixar TXT</button>
+          </article>
+          <article id="dl-trabalho" class="card download-row">
+            <div>
+              <span class="tag" style="color: #34d399; background: rgba(16, 185, 129, 0.15);">Trabalho</span>
+              <h3>Trabalho</h3>
+              <p>Checklists técnicos, parâmetros RF e modelos de registro de campo.</p>
+            </div>
+            <button class="btn-download" data-file="checklist-campo.json">Baixar JSON</button>
+          </article>
+          <article id="dl-fotos" class="card download-row">
+            <div>
+              <span class="tag" style="color: #34d399; background: rgba(16, 185, 129, 0.15);">Fotos</span>
+              <h3>Fotos</h3>
+              <p>Catálogo de registros e pacotes de imagens selecionadas.</p>
+            </div>
+            <button class="btn-download" data-file="catalogo-fotos.json">Baixar JSON</button>
+          </article>
+          <article id="dl-wallpaper" class="card download-row">
+            <div>
+              <span class="tag" style="color: #34d399; background: rgba(16, 185, 129, 0.15);">Wallpaper</span>
+              <h3>Wallpaper</h3>
+              <p>Coleção de wallpapers para desktop e celular em alta definição.</p>
+            </div>
+            <button class="btn-download" data-file="pacote-wallpapers.txt">Baixar TXT</button>
+          </article>
+        </div>
+      </div>
     </section>
 
     <!-- 6. LINKS -->
@@ -1026,12 +1181,18 @@
         </div>
       </div>
     </section>
+
+    <!-- SEÇÃO SECRETA -->
+    <section id="secreto" class="secret-zone" aria-label="Seção Secreta">
+      <h2><a href="#secreto">Secreto</a></h2>
+      <p>Área oculta revelada apenas ao selecionar o texto ou usar Selecionar tudo (Ctrl+A / Cmd+A).</p>
+    </section>
   </main>
 
   <!-- RODAPÉ COM CONTROLE ESTÁTICO DE REVISÃO -->
   <footer>
-    <p class="footer-version" id="footerRevision" data-version="1.2" data-updated="26/11/2026 20:59">
-      Criado por: Fernando Sato - Versão 1.2 - 26/11/2026 20:59
+    <p class="footer-version" id="footerRevision" data-version="1.3" data-updated="26/11/2026 21:22">
+      Criado por: Fernando Sato - Versão 1.3 - 26/11/2026 21:22
     </p>
   </footer>
 
@@ -1114,7 +1275,7 @@
     }, { passive: true });
 
     // Scroll Spy na Navbar
-    const sections = document.querySelectorAll("main section");
+    const sections = document.querySelectorAll("main section:not(.secret-zone)");
     const navLinks = document.querySelectorAll("nav a[data-nav]");
     window.addEventListener("scroll", () => {
       let current = "";
@@ -1179,7 +1340,13 @@
           "Validar canais 2.4 GHz e 5 GHz no Gateway",
           "Confirmar navegação e velocidade com o cliente"
         ]
-      }, null, 2)
+      }, null, 2),
+      "guia-games.txt": "GUIA RAPIDO - GAMES & RETRO\n===========================\nSubsecoes: Arcade, Nintendo, Super Nes, Mega Drive, Emuladores, Roms\n",
+      "catalogo-fotos.json": JSON.stringify({
+        secao: "Fotos",
+        categorias: ["Telecom & Campo", "Dev & Apps", "Setup & Hardware"]
+      }, null, 2),
+      "pacote-wallpapers.txt": "WALLPAPERS - COLECAO FS.HUB\n===========================\nResolucoes recomendadas: 1920x1080 (Desktop) e 1080x2400 (Mobile)\n"
     };
 
     document.querySelectorAll(".btn-download").forEach(btn => {
