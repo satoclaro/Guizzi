@@ -12,7 +12,7 @@ Landing page responsiva em página única (*Single Page Application* estática),
 - **Download:** Geração e download instantâneo de arquivos técnicos e subseções dedicadas (**Games**, **Trabalho**, **Fotos** e **Wallpaper**).
 - **Links:** Central de atalhos rápidos para `Claro-Estoque`, `Equipamentos-`, `Tivit`, `Guizzi` e `github.com/satoclaro/Teste`.
 - **Contato:** Formulário interativo e cópia rápida de identificação.
-- **Seção e Página Secreta:** O link `Secreto` permanece camuflado na cor do fundo até ser selecionado (`::selection` / selecionar tudo), e a página secreta funciona **somente com o código `2103`**.
+- **Link Secreto:** Exibido na página; ao clicar, abre um campo protegido que só libera o acesso após digitar a chave esperada, sem exibir o código na tela.
 
 ## Estrutura do Repositório
 
@@ -26,7 +26,7 @@ Landing page responsiva em página única (*Single Page Application* estática),
 O rodapé exibe o texto estático da última revisão gravada diretamente no `index.html`:
 
 ```text
-Criado por: Fernando Sato - Versão 1.5 - 26/11/2026 21:41
+Criado por: Fernando Sato - Versão 1.6 - 26/11/2026 21:46
 ```
 
 Para evitar alterações a cada visualização no navegador, **a versão, data e hora não utilizam `new Date()` em tempo real**. Elas permanecem fixas no HTML e são atualizadas diretamente aqui a cada nova revisão solicitada.

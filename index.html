@@ -607,45 +607,76 @@
       border-color: var(--accent);
     }
 
-    /* SEÇÃO SECRETA (INVISÍVEL ATÉ SELECIONAR) */
-    .secret-zone {
+    /* LINK SECRETO VISÍVEL NO RODAPÉ / SEÇÃO */
+    .secret-link-bar {
       margin-top: 2.5rem;
-      padding: 1.5rem;
-      background-color: var(--bg);
-      color: var(--bg);
+      padding: 1.1rem 1.4rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
 
-    .secret-zone *,
-    .secret-zone a,
-    .secret-zone h2,
-    .secret-zone h3,
-    .secret-zone p,
-    .secret-zone span {
-      color: var(--bg);
-      background-color: var(--bg);
-      border-color: var(--bg);
-      box-shadow: none;
+    .secret-trigger-link {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      transition: var(--transition);
     }
 
-    .secret-zone ::selection,
-    .secret-zone a::selection,
-    .secret-zone h2::selection,
-    .secret-zone h3::selection,
-    .secret-zone p::selection,
-    .secret-zone span::selection {
-      color: #f8fafc;
-      background-color: #2563eb;
+    .secret-trigger-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
-    .secret-zone ::-moz-selection,
-    .secret-zone a::-moz-selection,
-    .secret-zone h2::-moz-selection,
-    .secret-zone h3::-moz-selection,
-    .secret-zone p::-moz-selection,
-    .secret-zone span::-moz-selection {
-      color: #f8fafc;
-      background-color: #2563eb;
+    /* MODAL DE ACESSO SECRETO */
+    .secret-gate-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2500;
+      padding: 1.5rem;
+    }
+
+    .secret-gate-modal.open {
+      display: flex;
+    }
+
+    .secret-gate-box {
+      max-width: 420px;
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+    }
+
+    .secret-input-inline {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.75rem 0.95rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      margin-top: 0.85rem;
+    }
+
+    .secret-input-inline:focus {
+      outline: none;
+      border-color: var(--accent);
     }
 
     /* PÁGINA SECRETA DESBLOQUEADA */
@@ -665,21 +696,6 @@
     body.secret-unlocked > main,
     body.secret-unlocked > footer {
       display: none;
-    }
-
-    .secret-input-inline {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.7rem 0.95rem;
-      border-radius: 10px;
-      font-size: 0.95rem;
-      min-width: 200px;
-    }
-
-    .secret-input-inline:focus {
-      outline: none;
-      border-color: var(--accent);
     }
 
     /* LIGHTBOX MODAL */
@@ -1216,46 +1232,51 @@
       </div>
     </section>
 
-    <!-- SEÇÃO SECRETA (INVISÍVEL ATÉ SELECIONAR) -->
-    <section id="secreto" class="secret-zone" aria-label="Seção Secreta">
-      <h2><a href="#pagina-secreta" id="secretLink">Secreto</a></h2>
-      <p>Digite o código para abrir a página secreta.</p>
-    </section>
+    <!-- LINK SECRETO VISÍVEL (ACESSO SOMENTE APÓS VALIDAR) -->
+    <div id="secreto" class="secret-link-bar">
+      <span style="color: var(--text-muted); font-size: 0.9rem;">Acesso restrito</span>
+      <a href="#pagina-secreta" id="secretLink" class="secret-trigger-link">Link Secreto</a>
+    </div>
   </main>
 
-  <!-- PÁGINA SECRETA (ABRE SOMENTE COM O CÓDIGO 2103) -->
+  <!-- MODAL DE CHAVE DE ACESSO (NÃO EXIBE O CÓDIGO) -->
+  <div class="modal" id="secretGateModal" role="dialog" aria-modal="true" aria-labelledby="secretGateTitle">
+    <div class="secret-gate-box">
+      <h3 id="secretGateTitle">Acesso ao Link Secreto</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.35rem;">Digite a chave de acesso para liberar a página.</p>
+      <input type="password" id="secretKeyInput" class="secret-input-inline" placeholder="Digite aqui" autocomplete="off" />
+      <div style="display: flex; gap: 0.6rem; justify-content: flex-end; margin-top: 1rem;">
+        <button type="button" class="filter-btn" id="cancelSecretGate">Cancelar</button>
+        <button type="button" class="btn-primary" id="secretKeyBtn" style="padding: 0.55rem 1.2rem; font-size: 0.9rem;">Acessar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PÁGINA SECRETA DESBLOQUEADA -->
   <div id="secretPageView" class="secret-page-view" aria-live="polite">
     <div class="section-header">
       <h2>🔐 Página Secreta</h2>
-      <button type="button" class="filter-btn" id="lockSecretPage">Bloquear / Voltar</button>
-    </div>
-
-    <div class="card" style="margin-bottom: 1.5rem;">
-      <span class="tag">Acesso Liberado</span>
-      <h3>Área Reservada</h3>
-      <p style="margin-top: 0.35rem;">Esta página funciona exclusivamente com o código <strong>2103</strong>.</p>
-      <div style="display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1rem;">
-        <input type="password" id="secretKeyInput" class="secret-input-inline" placeholder="Código de acesso" autocomplete="off" />
-        <button type="button" class="btn-primary" id="secretKeyBtn">Confirmar</button>
-      </div>
+      <button type="button" class="filter-btn" id="lockSecretPage">Sair</button>
     </div>
 
     <div class="grid-2">
       <div class="card">
-        <h3>Notas Reservadas</h3>
+        <span class="tag">Reservado</span>
+        <h3>Notas Pessoais</h3>
         <p style="margin-top: 0.4rem;">Espaço privado para anotações rápidas, lembretes pessoais e rascunhos técnicos.</p>
       </div>
       <div class="card">
-        <h3>Atalhos Rápidos</h3>
-        <p style="margin-top: 0.4rem;">Acesso direto aos utilitários e páginas principais quando quiser retornar.</p>
+        <span class="tag">Reservado</span>
+        <h3>Atalhos Internos</h3>
+        <p style="margin-top: 0.4rem;">Área liberada após validação do acesso.</p>
       </div>
     </div>
   </div>
 
   <!-- RODAPÉ COM CONTROLE ESTÁTICO DE REVISÃO -->
   <footer>
-    <p class="footer-version" id="footerRevision" data-version="1.5" data-updated="26/11/2026 21:41">
-      Criado por: Fernando Sato - Versão 1.5 - 26/11/2026 21:41
+    <p class="footer-version" id="footerRevision" data-version="1.6" data-updated="26/11/2026 21:46">
+      Criado por: Fernando Sato - Versão 1.6 - 26/11/2026 21:46
     </p>
   </footer>
 
@@ -1283,78 +1304,75 @@
       window.__toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
     }
 
-    // Página Secreta: funciona SOMENTE com o código 2103
-    const SECRET_CODE = "2103";
-    const secretPageView = document.getElementById("secretPageView");
+    // Link Secreto visível: abre somente após digitar "Secreto 2103" (sem exibir o código na tela)
+    const REQUIRED_ACCESS_KEY = "secreto 2103";
+    const secretLink = document.getElementById("secretLink");
+    const secretGateModal = document.getElementById("secretGateModal");
     const secretKeyInput = document.getElementById("secretKeyInput");
     const secretKeyBtn = document.getElementById("secretKeyBtn");
+    const cancelSecretGate = document.getElementById("cancelSecretGate");
+    const secretPageView = document.getElementById("secretPageView");
     const lockSecretPage = document.getElementById("lockSecretPage");
-    const secretLink = document.getElementById("secretLink");
-    let isSecretOpen = false;
 
-    function openSecretPage() {
-      isSecretOpen = true;
+    function normalizeSecretInput(val) {
+      return (val || "").trim().toLowerCase().replace(/\s+/g, " ");
+    }
+
+    function openGateModal() {
+      secretKeyInput.value = "";
+      secretGateModal.classList.add("open");
+      setTimeout(() => secretKeyInput.focus(), 50);
+    }
+
+    function closeGateModal() {
+      secretKeyModal.classList.remove("open");
+      secretKeyInput.value = "";
+    }
+
+    function unlockSecretPage() {
+      closeGateModal();
       document.body.classList.add("secret-unlocked");
       secretPageView.classList.add("active");
       window.scrollTo({ top: 0, behavior: "smooth" });
-      showToast("Página secreta aberta");
+      showToast("Acesso liberado");
     }
 
-    function closeSecretPage() {
-      isSecretOpen = false;
+    function lockSecretArea() {
       document.body.classList.remove("secret-unlocked");
       secretPageView.classList.remove("active");
-      if (secretKeyInput) secretKeyInput.value = "";
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     secretLink.addEventListener("click", e => {
       e.preventDefault();
-      if (secretKeyInput) {
-        openSecretPage();
-        secretKeyInput.focus();
-      }
+      openGateModal();
     });
 
-    function handleSecretSubmit() {
-      const raw = (secretKeyInput.value || "").trim();
-      if (raw === SECRET_CODE) {
-        openSecretPage();
-        secretKeyInput.value = "";
+    cancelSecretGate.addEventListener("click", closeGateModal);
+    secretGateModal.addEventListener("click", e => {
+      if (e.target === secretGateModal) closeGateModal();
+    });
+
+    function verifySecretAccess() {
+      const typed = normalizeSecretInput(secretKeyInput.value);
+      if (typed === REQUIRED_ACCESS_KEY) {
+        unlockSecretPage();
       } else {
-        showToast("Código inválido");
+        showToast("Acesso negado");
       }
     }
 
-    secretKeyBtn.addEventListener("click", handleSecretSubmit);
+    secretKeyBtn.addEventListener("click", verifySecretAccess);
     secretKeyInput.addEventListener("keydown", e => {
       if (e.key === "Enter") {
         e.preventDefault();
-        handleSecretSubmit();
+        verifySecretAccess();
+      } else if (e.key === "Escape") {
+        closeGateModal();
       }
     });
 
-    // Digitação direta do código 2103 no teclado quando fora de campos de formulário
-    let codeBuffer = "";
-    let codeTimer;
-    document.addEventListener("keydown", e => {
-      const tag = document.activeElement && document.activeElement.tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA" || document.activeElement?.isContentEditable) return;
-      if (e.ctrlKey || e.metaKey || e.altKey || e.key.length !== 1) return;
-
-      codeBuffer = (codeBuffer + e.key).slice(-SECRET_CODE.length);
-      clearTimeout(codeTimer);
-      codeTimer = setTimeout(() => { codeBuffer = ""; }, 2000);
-
-      if (codeBuffer === SECRET_CODE) {
-        codeBuffer = "";
-        if (!isSecretOpen) {
-          openSecretPage();
-        }
-      }
-    });
-
-    lockSecretPage.addEventListener("click", closeSecretPage);
+    lockSecretPage.addEventListener("click", lockSecretArea);
 
     // Mobile Menu
     const menuToggle = document.getElementById("menuToggle");
@@ -1411,7 +1429,7 @@
     }, { passive: true });
 
     // Scroll Spy na Navbar
-    const sections = document.querySelectorAll("main section:not(.secret-zone)");
+    const sections = document.querySelectorAll("main section");
     const navLinks = document.querySelectorAll("nav a[data-nav]");
     window.addEventListener("scroll", () => {
       let current = "";
